@@ -25,7 +25,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		// Called after initialize at plugin startup (why the tests for undefined). Also called after deactivate when user closes app by clicking X. 
 		hibernate: function () {
 			if (this.appDiv != undefined){
-				this.esriapi.clearAtts(this);
+				// this.esriapi.clearAtts(this);
 				this.obj.visibleLayers = [-1];
 				this.dynamicLayer.setVisibleLayers(this.obj.visibleLayers);
 			}
