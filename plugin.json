@@ -1,0 +1,9 @@
+{
+    "css": [
+		"plugins/mohw-gen-phys-eco/css/main.css"
+    ],
+    "use": {
+        "tv4": { "attach": "tv4" },
+        "extjs": { "attach": "Ext" }
+    }
+}
