@@ -13,7 +13,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				// Add dynamic map service
 				t.dynamicLayer = new ArcGISDynamicMapServiceLayer(t.url, {opacity:1});
 				t.map.addLayer(t.dynamicLayer);
-				t.dynamicLayer.setVisibleLayers([-1]);
+				t.dynamicLayer.setVisibleLayers([1]);
 				t.dynamicLayer.on("load", function () { 			
 					t.layersArray = t.dynamicLayer.layerInfos;
 					// Save and Share Handler					

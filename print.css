@@ -1,28 +1,9 @@
 ﻿@media print {
 	@page { 
         size: portrait;
-		margin: 13mm 13mm 13mm 13mm;
+		margin:0;
     }	
-    #plugin-print-preview-map {
-        visibility: visible;
-		width:1000px !important;
-		height:550px !important;
-		margin-left:100px;
-		position:absolute;
-		top:50px;
-		left:-20px;
-    }	
-	.pt{
+	.gpe-watershed-report{
 		visibility: visible;
 	}
-	.printCell{
-		background-color: #ddd !important;	
-		-webkit-print-color-adjust: exact; 
-	}	
-	table tbody tr td:before,
-    table tbody tr td:after {
-        content : "" ;
-        height : 4px ;
-        display : block ;
-    }
 }

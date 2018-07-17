@@ -10,8 +10,8 @@ define([
 function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, content, esriapi, clicks, lang, Query, QueryTask ) {
 	return declare(PluginBase, {
 		// The height and width are set here when an infographic is defined. When the user click Continue it rebuilds the app window with whatever you put in.
-		toolbarName:"MO Headwaters", showServiceLayersInLegend:false, allowIdentifyWhenActive:false, rendered:false, resizable:false,
-		hasCustomPrint:false, size:'custom', width:"425", hasHelp:false, fullName:"Blue Carbon",
+		toolbarName:"General Physical and Ecological Info", showServiceLayersInLegend:true, allowIdentifyWhenActive:false, rendered:false, resizable:false,
+		hasCustomPrint:true, size:'custom', width:"700", hasHelp:false, fullName:"General Physical and Ecological Info",
 		
 		// First function called when the user clicks the pluging icon. 
 		initialize: function (frameworkParameters) {
@@ -19,8 +19,9 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			declare.safeMixin(this, frameworkParameters);
 			// Define object to access global variables from JSON object. Only add variables to varObject.json that are needed by Save and Share. 
 			this.obj = dojo.eval("[" + obj + "]")[0];	
-			this.url = "http://dev.services.coastalresilience.org:6080/arcgis/rest/services/OceanWealth/Blue_Carbon/MapServer";
+			this.url = "http://dev.services.coastalresilience.org:6080/arcgis/rest/services/MOHW/mohw_gen_phys_eco/MapServer";
 			this.layerDefs = [];
+			this.appname = "General Physical and Ecological Info";
 		},
 		// Called after initialize at plugin startup (why the tests for undefined). Also called after deactivate when user closes app by clicking X. 
 		hibernate: function () {
@@ -36,7 +37,6 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			if (this.rendered == false) {
 				this.rendered = true;							
 				this.render();
-				$(this.printButton).hide();
 			}else{
 				this.dynamicLayer.setVisibleLayers(this.obj.visibleLayers);
 			}

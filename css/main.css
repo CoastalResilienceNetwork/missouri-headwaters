@@ -1,3 +1,49 @@
+.gpe-top-wrap{
+	display:none;
+}
 .gpe-top-wrap h4{
 	margin-top:1rem;
 }
+
+/*report css*/
+.gpe-watershed-report{
+	margin:0px; margin-top:-10px; padding:0px; width:670px; height:900px; clear:both; background-color:#fff; page-break-after:always;
+}
+.gpe-watershed-report h2{
+	margin-top:0; margin-bottom:4px; font-size:18px;
+}
+.gpe-watershed-report h3{
+	margin-top:0; font-size:16px;
+}
+.gpe-watershed-report h4{
+	font-size:14px;
+}
+.gpe-watershed-report h5{
+	font-size:13px; text-decoration:underline;
+}
+.gpe-watershed-report h6{
+	font-size:13px; font-weight:bold; margin-bottom:5px; margin-top:0;
+}
+.gpe-report-header-wrap{
+	text-align:center;
+}
+.gpe-rf{
+	display:flex; font-weight:bold;
+}
+.gpe-r1{
+	width:200px; font-weight:normal;
+}
+.gpe-r1n{
+	margin-right:5px; font-weight:normal;
+}
+.gpe-r2{
+	display:flex;
+}
+.gpe-rsr{
+	margin-right:3px;
+}
+.gpe-rsl{
+	margin-left:3px;
+}
+
+

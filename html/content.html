@@ -3,10 +3,232 @@ Dijit ContentPane to hold all the elements. The ContentPane is assigned a dynami
 takes the ContentPane id and prepends it to every element with a declared id in this HTML before the elements are created.
 The unique ContentPane id makes all the element ids unique and prevents duplicate id errors across other apps.-->
 <div id="top-wrap" class="gpe-top-wrap">
-	<h4>Start Exploring</h4>
-	<div class="chosen-wrap" style="margin-bottom:10px; margin-top:10px;">
-		<select data-placeholder="Choose an Explorer" id="explorerSelect" class="chosen">
-			<option></option>
-		</select>
-	</div>
+	<h4>View Layers</h4>
+	<div id="visLayerWrap">
+		<label class="form-component" for="gpe-lyrs1">
+			<input type="checkbox" id="gpe-lyrs1" name="gpe-lyrs" value="Major Land Resource Areas (MLRA)">
+			<div class="check"></div>
+			<span class="form-text">Major Land Resource Areas (MLRA)</span>
+		</label><br>
+		<label class="form-component disabled" for="gpe-lyrs2">
+			<input type="checkbox" id="gpe-lyrs2" name="gpe-lyrs" value="Ecoregion (Level 4 EPA)">
+			<div class="check"></div>
+			<span class="form-text">Ecoregion (Level 4 EPA)</span>
+		</label><br>
+		<label class="form-component" for="gpe-lyrs3">
+			<input type="checkbox" id="gpe-lyrs3" name="gpe-lyrs" value="National Wetlands Inventory (NWI)">
+			<div class="check"></div>
+			<span class="form-text">National Wetlands Inventory (NWI)</span>
+		</label><br>
+		<label class="form-component" for="gpe-lyrs4">
+			<input type="checkbox" id="gpe-lyrs4" name="gpe-lyrs" value="Land Use Land Cover (NLCD)">
+			<div class="check"></div>
+			<span class="form-text">Land Use Land Cover (NLCD)</span>
+		</label><br>
+		<label class="form-component" for="gpe-lyrs5">
+			<input type="checkbox" id="gpe-lyrs5" name="gpe-lyrs" value="Biophysical Setting Potential Vegetation">
+			<div class="check"></div>
+			<span class="form-text">Biophysical Setting Potential Vegetation</span>
+		</label><br>
+		<label class="form-component" for="gpe-lyrs6">
+			<input type="checkbox" id="gpe-lyrs6" name="gpe-lyrs" value="Soil Taxonomic Order">
+			<div class="check"></div>
+			<span class="form-text">Soil Taxonomic Order</span>
+		</label><br>
+		<label class="form-component" for="gpe-lyrs7">
+			<input type="checkbox" id="gpe-lyrs7" name="gpe-lyrs" value="Slope">
+			<div class="check"></div>
+			<span class="form-text">Slope</span>
+		</label><br>
+		<label class="form-component" for="gpe-lyrs8">
+			<input type="checkbox" id="gpe-lyrs8" name="gpe-lyrs" value="Active Riparian Area">
+			<div class="check"></div>
+			<span class="form-text">Active Riparian Area</span>
+		</label><br>
+		<label class="form-component" for="gpe-lyrs9">
+			<input type="checkbox" id="gpe-lyrs9" name="gpe-lyrs" value="Total Drainage Area (Sq Km)">
+			<div class="check"></div>
+			<span class="form-text">Total Drainage Area (Sq Km)</span>
+		</label><br>
+		<label class="form-component" for="gpe-lyrs10">
+			<input type="checkbox" id="gpe-lyrs10" name="gpe-lyrs" value="Mean Annual Flow">
+			<div class="check"></div>
+			<span class="form-text">Mean Annual Flow</span>
+		</label><br>
+		<label class="form-component" for="gpe-lyrs11">
+			<input type="checkbox" id="gpe-lyrs11" name="gpe-lyrs" value="Runoff">
+			<div class="check"></div>
+			<span class="form-text">Runoff</span>
+		</label>
+	</div>	
 </div>	
+<div id="watershed-report" class="gpe-watershed-report">
+	<div class="gpe-report-header-wrap">
+		<h2>Little Missouri Headwaters</h2>
+		<h3>Riparian and Rangeland Tool</h3>
+	</div>
+	<h4>Stream Reach Report</h4>
+	<div class="gpe-rf">
+		<div class="gpe-r1">Stream Reach Name</div>
+		<div id="GNIS_Name">GNIS_Name</div>
+	</div>
+	<div class="gpe-rf">
+		<div class="gpe-r1">HUC 12 Name</div>
+		<div id="HUC12_Name">HUC12_Name</div>
+	</div>
+	<div class="gpe-rf">
+		<div class="gpe-r1">HUC 10 Name</div>
+		<div id="HUC10_Name">HUC10_Name</div>
+	</div>
+	<div class="gpe-rf">
+		<div class="gpe-r1">River Drainage</div>
+		<div style="display:flex;">	
+			<div id="Basin">Basin</div>
+			<div class="gpe-rsr">,</div>
+			<div id="Hu_8_Name">Hu_8_Name</div>
+		</div>	
+	</div>	
+	<h5>Ecological Classification</h5>
+	<div class="gpe-rf">
+		<div class="gpe-r1">Stream Size and Class</div>
+		<div class="gpe-r2">
+			<div id="TotDASqKM">TotDASqKM</div>
+			<div class="gpe-rsl">(</div>
+			<div id="SizeClass">SizeClass</div>
+			<div>)</div>
+		</div>	
+	</div>
+	<div class="gpe-rf">
+		<div class="gpe-r1">Flow Type (perennial/intermit)</div>
+		<div id="FType">FType</div>
+	</div>
+	<div class="gpe-rf">
+		<div class="gpe-r1">Major Land Resource Area</div>
+		<div id="MLRA">MLRA</div>
+	</div>
+	<div class="gpe-rf">
+		<div class="gpe-r1"></div>
+		<div id="MLRA_description">MLRA_description</div>
+	</div>
+	<div class="gpe-rf">
+		<div class="gpe-r1">EPA Level IV Ecoregion</div>
+		<div class="gpe-r2">
+			<div id="L4_EcoNum">L4_EcoNum</div>
+			<div class="gpe-rsl gpe-rsr">|</div>
+			<div id="L4_EcoReg">L4_EcoReg</div>
+		</div>	
+	</div>
+	<div class="gpe-rf">
+		<div class="gpe-r1"></div>
+		<div id="L4_description">L4_description</div>
+	</div>
+	<h5>Soils (SSURGO)</h5>
+	<div style="display:flex;">
+		<div style="flex:1;">
+			<h6>Categorical (dominant in catchment)</h6>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Soil taxonomic order:</div>
+				<div id="SoilOrder">SoilOrder</div>
+			</div>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Drainage class:</div>
+				<div id="DrainClass">DrainClass</div>
+			</div>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Farmland capability class:</div>
+				<div id="FarmClass">FarmClass</div>
+			</div>
+		</div>
+		<div style="flex:1;">
+			<h6>Numeric (mean for catchment)</h6>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Kf-factor:</div>
+				<div id="kffact">kffact</div>
+			</div>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Rangeland productivity score:</div>
+				<div id="rpi">rpi</div>
+			</div>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">% poorly drained:</div>
+				<div id="p_poordr">p_poordr</div>
+			</div>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">% aridisol:</div>
+				<div id="p_aridisol">p_aridisol</div>
+			</div>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">% severe risk of erosion:</div>
+				<div id="severe">severe</div>
+			</div>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Available Water Storage (150cm):</div>
+				<div id="c_aws">c_aws</div>
+			</div>
+		</div>
+	</div>	
+	<h5>Size and Texture Class</h5>
+	<div style="display:flex;">
+		<div style="flex:1;">
+			<h6>Size</h6>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Coarse %:</div>
+				<div id="Coarse">Coarse</div>
+			</div>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Fine %:</div>
+				<div id="Fine">Fine</div>
+			</div>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Very Fine %:</div>
+				<div id="VeryFine">VeryFine</div>
+			</div>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Skeletal %:</div>
+				<div id="Skeletal">Skeletal</div>
+			</div>
+		</div>
+		<div style="flex:1;">
+			<h6>Texture</h6>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Loamy %:</div>
+				<div id="Loamy">Loamy</div>
+			</div>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Sandy %:</div>
+				<div id="Fine">Sandy</div>
+			</div>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Silty %:</div>
+				<div id="Silty">Silty</div>
+			</div>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Clayey %:</div>
+				<div id="Clayey">Clayey</div>
+			</div>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Fragmental %:</div>
+				<div id="Fragmental">Fragmental</div>
+			</div>
+		</div>
+		<div style="flex:1;">
+			<h6>Sub texture</h6>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Over Sandy:</div>
+				<div id="OvrSandy">OvrSandy</div>
+			</div>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Over Fragmental:</div>
+				<div id="OvrFrag">OvrFrag</div>
+			</div>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Over Fine:</div>
+				<div id="OvrFine">OvrFine</div>
+			</div>
+			<div class="gpe-rf">
+				<div class="gpe-r1n">Over Sandy-Skeletal:</div>
+				<div id="OvrSkel">OvrSkel</div>
+			</div>
+		</div>
+	</div>		
+</div>
