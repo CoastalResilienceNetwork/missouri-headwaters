@@ -1,6 +1,6 @@
 {
     "css": [
-		"plugins/mohw-gen-phys-eco/css/main.css"
+		"plugins/physical-eco-info/css/main.css"
     ],
     "use": {
         "tv4": { "attach": "tv4" },
