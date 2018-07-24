@@ -1,9 +1,9 @@
 ﻿@media print {
 	@page { 
         size: portrait;
-		margin:0;
+		margin:13mm 0mm 13mm 0mm;
     }	
 	.gpe-watershed-report{
-		visibility: visible;
+		visibility:visible;
 	}
 }

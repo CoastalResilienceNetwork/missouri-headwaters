@@ -25,7 +25,43 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					}	
 				});
 				t.map.setMapCursor("pointer");
-			}				
+
+				// map clicks
+				t.map.on("click",function(c){
+					if (t.open == "yes"){
+						t.reportArray = [];
+						var q = new Query();
+						var qt = new QueryTask(t.url + "/2" );
+						q.geometry = c.mapPoint;
+						q.outFields = ["*"];
+						q.returnGeometry = true;
+						qt.execute(q, function(e){
+							if (e.features[0]){
+								t.reportArray = e.features[0].attributes;
+								console.log(t.reportArray)
+								// setTimeout(function (){
+									t.esriapi.populateReport(t);
+								// }, 1000);
+							}	
+						})
+					}
+				})
+			},
+			populateReport: function(t){
+				$("#" + t.id + "watershed-report span").css("color","red")
+				$("#" + t.id + "watershed-report span").each(function(i,v){
+					if (v.id.length > 0){
+						var field = v.id.split("-").pop()
+						console.log(t.reportArray[field])
+						if (typeof t.reportArray[field] != 'undefined'){
+							$("#" + v.id).html(t.reportArray[field])
+							$("#" + v.id).css("color","#5d6165")	
+						}
+					}else{
+						$(v).css("color","#5d6165")
+					}
+				})
+			}			
 		});
     }
 );

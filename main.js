@@ -19,7 +19,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			declare.safeMixin(this, frameworkParameters);
 			// Define object to access global variables from JSON object. Only add variables to varObject.json that are needed by Save and Share. 
 			this.obj = dojo.eval("[" + obj + "]")[0];	
-			this.url = "http://dev.services.coastalresilience.org:6080/arcgis/rest/services/MOHW/mohw_gen_phys_eco/MapServer";
+			this.url = "http://dev.services.coastalresilience.org:6080/arcgis/rest/services/Missouri_Headwaters/physical_eco_info/MapServer";
 			this.layerDefs = [];
 			this.appname = "General Physical and Ecological Info";
 		},
@@ -64,10 +64,15 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		setState: function (state) {
 			this.obj = state;
 		},
-		// Called when the user hits the print icon
-		beforePrint: function(printDeferred, $printArea, mapObject) {
-			printDeferred.resolve();
-		},	
+		prePrintModal: function(preModalDeferred, $printArea, mapObject, modalSandbox) {
+           preModalDeferred.resolve();
+        },
+		postPrintModal: function(postModalDeferred, modalSandbox, mapObject) {
+            $('#plugin-print-sandbox').hide();
+            window.setTimeout(function() {
+                postModalDeferred.resolve();
+            }, 1);
+        },	
 		// Called by activate and builds the plugins elements and functions
 		render: function() {
 			this.mapScale  = this.map.getScale();
