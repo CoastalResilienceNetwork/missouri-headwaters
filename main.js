@@ -5,13 +5,13 @@
 // Bring in dojo and javascript api classes as well as varObject.json, js files, and content.html
 define([
 	"dojo/_base/declare", "framework/PluginBase", "dijit/layout/ContentPane", "dojo/dom", "dojo/dom-style", "dojo/dom-geometry", "dojo/text!./obj.json", 
-	"dojo/text!./html/content.html", './js/esriapi', './js/clicks', 'dojo/_base/lang', "esri/tasks/query", "esri/tasks/QueryTask"	
+	"dojo/text!./html/content.html", "dojo/text!./html/report.html", './js/esriapi', './js/clicks', 'dojo/_base/lang', "esri/tasks/query", "esri/tasks/QueryTask"	
 ],
-function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, content, esriapi, clicks, lang, Query, QueryTask ) {
+function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, content, report,  esriapi, clicks, lang, Query, QueryTask ) {
 	return declare(PluginBase, {
 		// The height and width are set here when an infographic is defined. When the user click Continue it rebuilds the app window with whatever you put in.
 		toolbarName:"General Physical and Ecological Info", showServiceLayersInLegend:true, allowIdentifyWhenActive:false, rendered:false, resizable:false,
-		hasCustomPrint:true, size:'custom', width:"700", hasHelp:false, fullName:"General Physical and Ecological Info",
+		hasCustomPrint:true, size:'custom', width:'500', hasHelp:false, fullName:"General Physical and Ecological Info",
 		
 		// First function called when the user clicks the pluging icon. 
 		initialize: function (frameworkParameters) {
@@ -64,11 +64,13 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		setState: function (state) {
 			this.obj = state;
 		},
-		prePrintModal: function(preModalDeferred, $printArea, mapObject, modalSandbox) {
-           preModalDeferred.resolve();
+		prePrintModal: function(preModalDeferred, $printSandbox, $modalSandbox, mapObject) {
+        	$printSandbox.html(this.repIdUpdate)
+          	// Fill in report
+          	this.esriapi.populateReport(this);
+          	preModalDeferred.resolve();
         },
 		postPrintModal: function(postModalDeferred, modalSandbox, mapObject) {
-            $('#plugin-print-sandbox').hide();
             window.setTimeout(function() {
                 postModalDeferred.resolve();
             }, 1);
@@ -82,7 +84,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			// ADD HTML TO APP
 			// Define Content Pane as HTML parent		
 			this.appDiv = new ContentPane({style:'padding:8px; height:100%;'});
-			this.id = this.appDiv.id
+			this.id = this.appDiv.id;
 			dom.byId(this.container).appendChild(this.appDiv.domNode);	
 			// hide minimize for this app
 			$('#' + this.id).parent().parent().find(".plugin-minimize").hide();
@@ -93,6 +95,8 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			var idUpdate0 = content.replace(/for="/g, 'for="' + this.id);	
 			var idUpdate = idUpdate0.replace(/id="/g, 'id="' + this.id);
 			$('#' + this.id).html(idUpdate);
+			// Create report div
+			this.repIdUpdate = report.replace(/id="/g, 'id="' + this.id);
 			// Click listeners
 			this.clicks.eventListeners(this);
 			// Create ESRI objects and event listeners	

@@ -1,9 +1,18 @@
 ﻿@media print {
 	@page { 
-        size: portrait;
-		margin:13mm 0mm 13mm 0mm;
+        size: 8.5in 11in portrait;
+		margin:13mm;
     }	
 	.gpe-watershed-report{
-		visibility:visible;
+		visibility:visible !important;
+	}
+	table {
+  		page-break-inside: avoid;
+	}
+	.pgBreak{
+		page-break-after:always;
+	}
+	.pgBreak{
+		break-after:always;
 	}
 }

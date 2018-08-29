@@ -1,52 +1,30 @@
-.gpe-top-wrap{
-	display:none;
-}
 .gpe-top-wrap h4{
 	margin-top:1rem;
 }
-
-/*report css*/
-footer{
-	page-break-after:always;
+.toc{
+	margin-top:20px;
 }
-.gpe-watershed-report{
-	margin:0px; margin-top:-10px; padding:0px; width:670px; background-color:#fff; 
+.toc .toggle-btn{
+	margin-bottom:-10px; margin-top:-6px;
 }
-.gpe-watershed-report h2{
-	margin-top:0; margin-bottom:4px; font-size:18px;
+.toc .toggle-btn label{
+	border-radius:0 !important;
 }
-.gpe-watershed-report h3{
-	margin-top:0; font-size:16px;
+.toc .toggle-btn input:checked+label{
+	cursor:pointer !important; 
 }
-.gpe-watershed-report h4{
-	font-size:14px;
+.toc .toggle-btn input:checked+label:hover{
+	background-color:#00a4ea;
+}	
+.toc h5{
+	font-size:12px; color: #5d6165; margin:8px 0 4px 0;
 }
-.gpe-watershed-report h5{
-	font-size:13px; text-decoration:underline;
+.toc label{
+	margin-right:20px; margin-bottom:6px !important;
 }
-.gpe-watershed-report h6{
-	font-size:13px; font-weight:bold; margin-bottom:5px; margin-top:0;
-}
-.gpe-report-header-wrap{
-	text-align:center;
-}
-.gpe-r1d{
-	margin-left:10px;
-}
-.gpe-r1n{
-	margin-right:5px; font-weight:normal;
-}
-.gpe-r1n span, .gpe-r1d span{
-	font-weight:bold;
-}
-table {
-    border-collapse: collapse;
-}
-td, th {
-    border:1px solid #999; padding:0.25rem; text-align:left;
-} 
-th{
-	font-weight:normal; color:#000;
+.groupDiv{
+	display:none; padding:16px 0px 5px 10px; border:1pt solid #ddd;
+	margin:-18px 7px 0px 0px;
 }
 
 
