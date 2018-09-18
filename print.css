@@ -15,4 +15,7 @@
 	.pgBreak{
 		break-after:always;
 	}
+	#map-0{
+		display:none;
+	}
 }
