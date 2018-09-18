@@ -111,6 +111,9 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 				$("#showDesc").hide();
 				$("#descWrap").show();
 			})	
+			if (this.obj.stateSet == "no"){
+				$("#show-single-plugin-mode-help").trigger("click");
+			}
 			// Create report div
 			this.repIdUpdate = report.replace(/id="/g, 'id="' + this.id);
 			// Click listeners
