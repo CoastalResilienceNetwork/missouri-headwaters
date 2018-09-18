@@ -22,6 +22,9 @@ function ( declare, Query, QueryTask, graphicsUtils ) {
 						}
 					});		
 				})
+				$("#" + t.id + "printReport").click(function(c){
+					$('#' + t.id).parent().parent().find(".plugin-print").trigger("click");
+				})
 			},
 			numberWithCommas: function(x){
 				return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

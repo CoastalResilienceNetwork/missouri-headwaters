@@ -22,9 +22,77 @@
 .toc label{
 	margin-right:20px; margin-bottom:6px !important;
 }
+.tgd{
+	margin-bottom: 10px; color:#101d28;
+}
 .groupDiv{
 	display:none; padding:16px 0px 5px 10px; border:1pt solid #ddd;
 	margin:-18px 7px 0px 0px;
 }
+#hideDesc{
+	text-align:center; margin-top:4px; cursor:pointer; color:#623C25; font-weight:bold;
+}
+#hideDesc:hover{
+	color:blue;
+}
+#hideDesc:active{
+	color:darkblue;
+}
+.appReportWrap .gpe-r1n span, .appReportWrap .gpe-r1d span{
+	color:#3e6c89;
+}
+.appReportWrap .gpe-r1d{
+	margin-left:10px; margin-right:20px; margin-top:-4px;
+}
+.appReportWrap{
+	display:none;
+}
+.appReportWrap div{
+	margin-bottom:6px;
+}
+.appReportWrap h4{
+	margin-bottom:0.5rem;
+}
 
+/* styles for '...' */ 
+.block-with-text {
+  /* hide text if it more than N lines  */
+  overflow: hidden;
+  /* for set '...' in absolute position */
+  position: relative; 
+  /* use this value to count block height */
+  line-height: 1.2em;
+  /* max-height = line-height (1.2) * lines max number (2) */
+  max-height: 2.4em; 
+  /* fix problem when last visible word doesn't adjoin right side  */
+  text-align: justify;  
+  /* place for '...' */
+  margin-right: -1em;
+  padding-right: 1em;
+}
+/* create the ... */
+.block-with-text:before {
+  /* points in the end */
+  content: '...';
+  /* absolute position */
+  position: absolute;
+  /* set position to right bottom corner of block */
+  right: 0;
+  bottom: 0;
+}
+/* hide ... if we have text, which is less than or equal to max lines */
+.block-with-text:after {
+  /* points in the end */
+  content: '';
+  /* absolute position */
+  position: absolute;
+  /* set position to right bottom corner of text */
+  right: 0;
+  /* set width and height */
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  /* bg color = bg color under block */
+  background: white;
+}
 

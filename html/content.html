@@ -3,10 +3,32 @@ Dijit ContentPane to hold all the elements. The ContentPane is assigned a dynami
 takes the ContentPane id and prepends it to every element with a declared id in this HTML before the elements are created.
 The unique ContentPane id makes all the element ids unique and prevents duplicate id errors across other apps.-->
 <div id="top-wrap" class="gpe-top-wrap">
-	<h4>Generate Report</h4>
+	<h3>Generate Report</h3>
 	<ol>
 		<li>Click to select HUC 12</li>
+		<li>Click to select a catchment or another HUC 12</li>
 	</ol>	
-	<div id="toc" class="toc"></div>
+	<div id="appReportWrap" class="appReportWrap">
+		<h4>Selected Catchment</h4>
+		<div style="margin-left:10px;">
+			<div class="gpe-r1n"><u>Stream Reach Name</u>: <span id="-GNIS_Name_a">GNIS_Name</span></div>
+			<div class="gpe-r1n"><u>River Drainage</u>: <span id="-Basin_a">Basin</span><span>, </span><span id="-Hu_8_Name_a">Hu_8_Name</span></div>
+			<div class="gpe-r1n"><u>HUC 12 Name</u>: <span id="-HUC12_Name_a">HUC12_Name</span></div>
+			<div class="gpe-r1n"><u>HUC 10 Name</u>: <span id="-HUC10_Name_a">HUC10_Name</span></div>
+			<div class="gpe-r1n"><u>Stream Size and Class</u>: <span id="-TotDASqKM_a" class="noDecimals">TotDASqKM</span><span> (</span><span id="-SizeClass_a">SizeClass</span><span>)</span></div>
+			<div class="gpe-r1n"><u>Flow Type (perennial/intermit)</u>: <span id="-Feature_Ty_a">Feature_Ty</span> (<span id="-Descriptio_a">Descriptio</span>)</div>
+			<div class="gpe-r1n"><u>Major Land Resource Area</u>: <span id="-MLRA_a">MLRA</span></div>
+			<div class="gpe-r1d block-with-text"><span id="-MLRA_description_a">MLRA_description</span></div>
+			<div class="gpe-r1n"><u>EPA Level IV Ecoregion</u>: <span id="-L4_EcoNum_a">L4_EcoNum</span><span> | </span><span id="-L4_EcoReg_a">L4_EcoReg</span></div>
+			<div class="gpe-r1d block-with-text"><span id="-L4_description_a">L4_description</span></div>
+		</div>
+		<div style="text-align:center; margin-top:20px;">
+			<button id="printReport" class="button button-primary" style="background-color:#0096d6;">Print Report</button>	
+		</div>	
+	</div>	
+	<!-- Supporting Layers -->
+	<div id="toc" class="toc">
+		<h3>View Supporting Layers</h3>
+	</div>
 </div>	
 

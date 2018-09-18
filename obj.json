@@ -1,3 +1,11 @@
 {
-	"visibleLayers": [1]
+	"visibleLayers": [1],
+	"groupingDesc": {
+		"General Physical and Ecological Info": "Basic topography, physical features, ecological classification, land cover, hydrology, and soil information.",
+		"Rangeland Potential": "Developed to show rangeland condition by catchment using continuous, intact grassland habitat and rangeland soil and vegetative productivity as the primary indicators of rangeland condition and quality.",
+		"Catchment Potential": "Includes five component indices: Hydrologic intactness, Erosion vulnerability, Soil vulnerability, current stress, and future risk.",
+		"Riparian Potential": "Includes four component indices: Riparian intactness (grass cover and perenniality), erosion vulnerability, and drought vulnerability (based on variance in vegetation index 'greenness'), and resilience (roughly the inverse of drought vulnerability).",
+		"Biodiversity": "Select biodiversity layers representing indicators of grassland health, condition, and connectivity.",
+		"Management and Restoration": "Ownership and management information as well as some preliminary recommendations for collaborative conservation opportunities and next steps based on combinations of condition and potential."
+	}
 }

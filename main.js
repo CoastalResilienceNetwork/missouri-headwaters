@@ -67,6 +67,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		prePrintModal: function(preModalDeferred, $printSandbox, $modalSandbox, mapObject) {
         	$printSandbox.html(this.repIdUpdate)
           	// Fill in report
+          	this.repGroup = "watershed-report";
           	this.esriapi.populateReport(this);
           	preModalDeferred.resolve();
         },
@@ -88,6 +89,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			dom.byId(this.container).appendChild(this.appDiv.domNode);	
 			// hide minimize for this app
 			$('#' + this.id).parent().parent().find(".plugin-minimize").hide();
+			$('#' + this.id).parent().parent().find(".plugin-print").hide();
 			if (this.obj.stateSet == "no"){
 				$('#' + this.id).parent().parent().css('display', 'flex')
 			}		
@@ -95,6 +97,19 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			var idUpdate0 = content.replace(/for="/g, 'for="' + this.id);	
 			var idUpdate = idUpdate0.replace(/id="/g, 'id="' + this.id);
 			$('#' + this.id).html(idUpdate);
+			// Add popup window for descriptions
+			this.descDiv = new ContentPane({style:'display:none; padding:5px; color:#000; opacity: 1; z-index:1000; position:absolute; top:10px; left:10px; max-width:150px; border-radius:5px; box-shadow: 0 1px 2px rgba(0,0,0,0.5); background:#f9f9f9;'});
+			this.descID = this.descDiv.id;
+			dom.byId('map-0').appendChild(this.descDiv.domNode);
+			$('#' + this.descID).html('<div id="showDesc" style="margin-bottom:-5px; display:none; cursor:pointer;"><img src="plugins/physical-eco-info/images/info.png"></div><div id="descWrap"><div class="descDiv" id="descText">Test</div><div id="hideDesc">Minimize</div></div>');
+			$("#hideDesc").click(function(c){
+				$("#descWrap").hide();
+				$("#showDesc").show();
+			})
+			$("#showDesc").click(function(c){
+				$("#showDesc").hide();
+				$("#descWrap").show();
+			})
 			// Create report div
 			this.repIdUpdate = report.replace(/id="/g, 'id="' + this.id);
 			// Click listeners
