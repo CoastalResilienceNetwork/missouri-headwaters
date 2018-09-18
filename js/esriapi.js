@@ -22,7 +22,12 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						var extent = new Extent(t.obj.extent.xmin, t.obj.extent.ymin, t.obj.extent.xmax, t.obj.extent.ymax, new SpatialReference({ wkid:4326 }))
 						t.map.setExtent(extent, true);
 						t.obj.stateSet = "no";
-					}	
+					}else{
+						$("#show-single-plugin-mode-help").trigger("click");
+					}
+					$('#show-single-plugin-mode-help').click(function() {
+						$('#' + t.descID).hide();
+					})	
 				});
 				t.map.setMapCursor("pointer");
 

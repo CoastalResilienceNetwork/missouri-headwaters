@@ -45,7 +45,7 @@
 	margin-left:10px; margin-right:20px; margin-top:-4px;
 }
 .appReportWrap{
-	display:none;
+	display:none; border-bottom:1pt solid #ccc;
 }
 .appReportWrap div{
 	margin-bottom:6px;

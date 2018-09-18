@@ -25,6 +25,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		},
 		// Called after initialize at plugin startup (why the tests for undefined). Also called after deactivate when user closes app by clicking X. 
 		hibernate: function () {
+			console.log("hibernate")
 			if (this.appDiv != undefined){
 				// this.esriapi.clearAtts(this);
 				this.obj.visibleLayers = [-1];
@@ -44,7 +45,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		},
 		// Called when user hits the minimize '_' icon on the pluging. Also called before hibernate when users closes app by clicking 'X'.
 		deactivate: function () {
-			$('#' + this.id).parent().parent().find(".plugin-off").trigger("click");
+			
 		},	
 		// Called when user hits 'Save and Share' button. This creates the url that builds the app at a given state using JSON. 
 		// Write anything to you varObject.json file you have tracked during user activity.		
@@ -98,7 +99,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			var idUpdate = idUpdate0.replace(/id="/g, 'id="' + this.id);
 			$('#' + this.id).html(idUpdate);
 			// Add popup window for descriptions
-			this.descDiv = new ContentPane({style:'display:none; padding:5px; color:#000; opacity: 1; z-index:1000; position:absolute; top:10px; left:10px; max-width:150px; border-radius:5px; box-shadow: 0 1px 2px rgba(0,0,0,0.5); background:#f9f9f9;'});
+			this.descDiv = new ContentPane({style:'display:none; padding:5px; color:#000; opacity: 1; z-index:1000; position:absolute; top:40px; left:6px; max-width:150px; border-radius:5px; box-shadow: 0 1px 2px rgba(0,0,0,0.5); background:#f9f9f9;'});
 			this.descID = this.descDiv.id;
 			dom.byId('map-0').appendChild(this.descDiv.domNode);
 			$('#' + this.descID).html('<div id="showDesc" style="margin-bottom:-5px; display:none; cursor:pointer;"><img src="plugins/physical-eco-info/images/info.png"></div><div id="descWrap"><div class="descDiv" id="descText">Test</div><div id="hideDesc">Minimize</div></div>');
@@ -109,7 +110,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			$("#showDesc").click(function(c){
 				$("#showDesc").hide();
 				$("#descWrap").show();
-			})
+			})	
 			// Create report div
 			this.repIdUpdate = report.replace(/id="/g, 'id="' + this.id);
 			// Click listeners
