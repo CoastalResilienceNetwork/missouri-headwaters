@@ -19,7 +19,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			declare.safeMixin(this, frameworkParameters);
 			// Define object to access global variables from JSON object. Only add variables to varObject.json that are needed by Save and Share. 
 			this.obj = dojo.eval("[" + obj + "]")[0];	
-			this.url = "http://dev.services.coastalresilience.org:6080/arcgis/rest/services/Missouri_Headwaters/physical_eco_info/MapServer";
+			this.url = "http://dev.services.coastalresilience.org:6080/arcgis/rest/services/Missouri_Headwaters/missouri_headwaters/MapServer";
 			this.layerDefs = [];
 			this.appname = "General Physical and Ecological Info";
 		},
