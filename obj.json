@@ -8,5 +8,6 @@
 		"Riparian Potential": "Includes four component indices: Riparian intactness (grass cover and perenniality), erosion vulnerability, and drought vulnerability (based on variance in vegetation index 'greenness'), and resilience (roughly the inverse of drought vulnerability).",
 		"Biodiversity": "Select biodiversity layers representing indicators of grassland health, condition, and connectivity.",
 		"Management and Restoration": "Ownership and management information as well as some preliminary recommendations for collaborative conservation opportunities and next steps based on combinations of condition and potential."
-	}
+	},
+	"sliderVal": 2
 }

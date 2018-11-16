@@ -32,7 +32,12 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				t.map.setMapCursor("pointer");
 
 				t.sym1  = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([88,116,215,1]), 2), new Color([88,116,215]);
-				
+				$("#" + t.id + "translide").slider({ min: 0, max: 10, range: false, values: [t.obj.sliderVal],
+   					change: function( event, ui ) {
+						t.obj.sliderVal = 1-ui.value/10;
+						t.dynamicLayer.setOpacity(t.obj.sliderVal);
+					}
+				})
 				// map clicks
 				t.huc12 = "";
 				t.map.on("click",function(c){

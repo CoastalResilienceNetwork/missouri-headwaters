@@ -21,7 +21,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			this.obj = dojo.eval("[" + obj + "]")[0];	
 			this.url = "http://dev.services.coastalresilience.org:6080/arcgis/rest/services/Missouri_Headwaters/missouri_headwaters/MapServer";
 			this.layerDefs = [];
-			this.appname = "General Physical and Ecological Info";
+			this.appname = "Missouri Headwaters";
 		},
 		// Called after initialize at plugin startup (why the tests for undefined). Also called after deactivate when user closes app by clicking X. 
 		hibernate: function () {
@@ -102,7 +102,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			this.descDiv = new ContentPane({style:'display:none; padding:5px; color:#000; opacity: 1; z-index:1000; position:absolute; top:40px; left:6px; max-width:150px; border-radius:5px; box-shadow: 0 1px 2px rgba(0,0,0,0.5); background:#f9f9f9;'});
 			this.descID = this.descDiv.id;
 			dom.byId('map-0').appendChild(this.descDiv.domNode);
-			$('#' + this.descID).html('<div id="showDesc" style="margin-bottom:-5px; display:none; cursor:pointer;"><img src="plugins/physical-eco-info/images/info.png"></div><div id="descWrap"><div class="descDiv" id="descText">Test</div><div id="hideDesc">Minimize</div></div>');
+			$('#' + this.descID).html('<div id="showDesc" style="margin-bottom:-5px; display:none; cursor:pointer;"><img src="plugins/missouri-headwaters/images/info.png"></div><div id="descWrap"><div class="descDiv" id="descText">Test</div><div id="hideDesc">Minimize</div></div>');
 			$("#hideDesc").click(function(c){
 				$("#descWrap").hide();
 				$("#showDesc").show();

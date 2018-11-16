@@ -22,6 +22,9 @@
 .toc label{
 	margin-right:20px; margin-bottom:6px !important;
 }
+.toc .slider-container{
+  margin:0;
+}
 .tgd{
 	margin-bottom: 10px; color:#101d28;
 }
