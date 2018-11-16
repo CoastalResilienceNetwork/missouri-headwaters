@@ -165,6 +165,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					}else{
 						$(c.currentTarget).prop("checked", false);
 						$('#' + t.descID).hide();
+						$("#" + t.id + "slider-wrap").hide();
 					}
 				})
 				// Radio button clicks
@@ -183,6 +184,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 							return false
 						}
 					})
+					$("#" + t.id + "slider-wrap").show();
 				});	
 			},
 			layersUpdate: function(t){
