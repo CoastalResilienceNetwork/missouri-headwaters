@@ -22,6 +22,8 @@ function ( declare, Query, QueryTask, graphicsUtils ) {
 						}
 					});		
 				})
+				$("#sldr").slider({ min: 0, max: 10, range: false, values: [1] })
+				
 				$("#" + t.id + "printReport").click(function(c){
 					$('#' + t.id).parent().parent().find(".plugin-print").trigger("click");
 				})
