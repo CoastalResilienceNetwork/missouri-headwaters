@@ -11,11 +11,13 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
         return declare(null, {
 			esriApiFunctions: function(t){	
 				// Add dynamic map service
+				console.log(t.url)
 				t.dynamicLayer = new ArcGISDynamicMapServiceLayer(t.url, {opacity:0.5});
 				t.map.addLayer(t.dynamicLayer);
 				t.dynamicLayer.setVisibleLayers([1]);
 				t.dynamicLayer.on("load", function () { 			
 					t.layersArray = t.dynamicLayer.layerInfos;
+					console.log(t.layersArray)
 					t.esriapi.buildToc(t);
 					// Save and Share Handler					
 					if (t.obj.stateSet == "yes"){
