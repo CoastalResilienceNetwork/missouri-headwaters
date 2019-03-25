@@ -11,13 +11,11 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
         return declare(null, {
 			esriApiFunctions: function(t){	
 				// Add dynamic map service
-				console.log(t.url)
 				t.dynamicLayer = new ArcGISDynamicMapServiceLayer(t.url, {opacity:0.5});
 				t.map.addLayer(t.dynamicLayer);
 				t.dynamicLayer.setVisibleLayers([1]);
 				t.dynamicLayer.on("load", function () { 			
 					t.layersArray = t.dynamicLayer.layerInfos;
-					console.log(t.layersArray)
 					t.esriapi.buildToc(t);
 					// Save and Share Handler					
 					if (t.obj.stateSet == "yes"){
@@ -34,7 +32,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				t.map.setMapCursor("pointer");
 
 				t.sym1  = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([88,116,215,1]), 2), new Color([88,116,215]);
-				$("#" + t.id + "translide").slider({ min: 0, max: 10, range: false, values: [t.obj.sliderVal],
+				$(`#${t.id}translide`).slider({ min: 0, max: 10, range: false, values: [t.obj.sliderVal],
    					change: function( event, ui ) {
 						t.obj.sliderVal = 1-ui.value/10;
 						t.dynamicLayer.setOpacity(t.obj.sliderVal);
@@ -62,7 +60,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 										t.map.graphics.add(r.features[0]);
 										t.repGroup = "appReportWrap";
 										t.esriapi.populateReport(t);
-										$("#" + t.id + "appReportWrap").slideDown();
+										$(`#${t.id}appReportWrap`).slideDown();
 									});	
 								}else{
 									t.huc12 = e.features[0].attributes.HUC_12;
@@ -81,11 +79,11 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 										}
 									})
 									t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-									$("#" + t.id + "appReportWrap").slideUp();
+									$(`#${t.id}appReportWrap`).slideUp();
 								}
 								t.map.setMapCursor("pointer")	
 							}else{
-								$("#" + t.id + "appReportWrap").slideUp();
+								$(`#${t.id}appReportWrap`).slideUp();
 							}
 						})
 					}
@@ -114,23 +112,32 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					}else{
 						if (v.parentLayerId == -1){
 							gdId = "toc" + v.id;
-							$("#" + t.id + "toc").append("<div class='toggle-btn'><input type='radio' id='t" + gdId + "' name='tocToggle' value='" + v.id + "'/><label style='text-align:left;' for='t" + gdId + "'>" + v.name + "</label></div>")
-							$("#" + t.id + "toc").append("<div class='groupDiv' id='" + gdId + "'><div class='tgd'>" + t.obj.groupingDesc[v.name] + "</div>" + "</>")
+							$(`#${t.id}toc`).append(`
+								<div class="toggle-btn">
+									<input type="radio" id="t${gdId}" name="tocToggle" value="${v.id}"/>
+									<label style="text-align:left;" for="t${gdId}">${v.name}</label>
+								</div>
+							`)
+							$(`#${t.id}toc`).append(`
+								<div class="groupDiv" id="${gdId}">
+									<div class="tgd">${t.obj.groupingDesc[v.name]}</div>
+								</div>
+							`)
 						}else{
 							if (v.subLayerIds){
-								$("#" + gdId).append("<h5>" + v.name + "</h5>")
+								$(`#${gdId}`).append(`<h5>${v.name}</h5>`)
 							}else{
 								var dis = "";
 								if (v.minScale > 0){
 									dis = "disabled";
 									t.minScale.push({id:v.id, minScale:v.minScale})
 								}
-								var tocRadio = '<label class="form-component" for="' + v.id + '">' +
-													'<input ' + dis + ' type="radio" id="' + v.id + '" name="tocRadios" value="' + v.id + '">' +
-													'<div class="check"></div>' +
-													'<span class="form-text">' + v.name + '</span>' +
-												'</label>'
-								$("#" + gdId).append(tocRadio)
+								var tocRadio = `<label class="form-component" for="${v.id}">
+													<input ${dis} type="radio" id="${v.id}" name="tocRadios" value="${v.id}">
+													<div class="check"></div>
+													<span class="form-text">${v.name}</span>
+												</label>`
+								$(`#${gdId}`).append(tocRadio)
 							}
 						}
 					}
@@ -157,21 +164,21 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					});
 				});
 				// Open and close toc groups
-				$("#" + t.id + "toc input[name='tocToggle']").click(function(c){
+				$(`#${t.id}toc input[name='tocToggle']`).click(function(c){
 					$(".groupDiv").slideUp("slow");
-					$("#" + t.id + "toc input[name='tocRadios']").prop("checked",false);
+					$(`#${t.id}toc input[name='tocRadios']`).prop("checked",false);
 					t.esriapi.layersUpdate(t);
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 					if ( !$(c.currentTarget).parent().next().is(":visible") ){
 						$(c.currentTarget).parent().next().slideDown("slow");
 					}else{
 						$(c.currentTarget).prop("checked", false);
-						$('#' + t.descID).hide();
-						$("#" + t.id + "slider-wrap").hide();
+						$(`#${t.descID}`).hide();
+						$(`#${t.id}slider-wrap`).hide();
 					}
 				})
 				// Radio button clicks
-				$("#" + t.id + "toc input[name='tocRadios']").click(function(c){
+				$(`#${t.id}toc input[name='tocRadios']`).click(function(c){
 					t.esriapi.layersUpdate(t);
 					t.obj.visibleLayers.push(c.currentTarget.value);
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
@@ -179,14 +186,14 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						if (v.id == c.currentTarget.value){
 							if (v.description.length > 0){
 								$("#descText").html(v.description)
-								$('#' + t.descID).show();
+								$(`#${t.descID}`).show();
 							}else{
-								$('#' + t.descID).hide();
+								$(`#${t.descID}`).hide();
 							}
 							return false
 						}
 					})
-					$("#" + t.id + "slider-wrap").show();
+					$(`#${t.id}slider-wrap`).show();
 				});	
 			},
 			layersUpdate: function(t){
@@ -204,7 +211,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				})
 			},
 			populateReport: function(t){
-				$("#" + t.id + t.repGroup + " span").each(function(i,v){
+				$(`#${t.id}t.repGroup span`).each(function(i,v){
 					if (v.id.length > 0){
 						var field = v.id.split("-").pop()
 						// handles duplicate ids in print report
@@ -216,16 +223,16 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 							field = field.slice(0, -2);
 						}
 						if (typeof t.reportArray[field] != 'undefined'){
-							$("#" + v.id).html(t.reportArray[field])
+							$(`#${v.id}`).html(t.reportArray[field])
 							//$("#" + v.id).css("color","#5d6165")	
 						}
 					}
 				})
-				$("#" + t.id + t.repGroup + " .noDecimals").each(function(i,v){
+				$(`#${t.id}t.repGroup .noDecimals`).each(function(i,v){
 					var num = Math.round($(v).html())
 					$(v).html(num)
 				})
-				$("#" + t.id + t.repGroup + " .twoDecimals").each(function(i,v){
+				$(`#${t.id}t.repGroup .twoDecimals`).each(function(i,v){
 					var num = parseFloat( $(v).html() ).toFixed(2);
 					$(v).html(num)
 				})
