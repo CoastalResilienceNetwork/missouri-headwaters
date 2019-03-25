@@ -23,11 +23,8 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						t.map.setExtent(extent, true);
 						t.obj.stateSet = "no";
 					}else{
-						// $("#show-single-plugin-mode-help").trigger("click");
+						
 					}
-					$('#show-single-plugin-mode-help').click(function() {
-						$('#' + t.descID).hide();
-					})	
 				});
 				t.map.setMapCursor("pointer");
 
