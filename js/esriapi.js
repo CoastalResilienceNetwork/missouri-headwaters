@@ -52,10 +52,12 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 								if (t.huc12 == e.features[0].attributes.HUC_12){
 									var qt1 = new QueryTask(t.url + "/4")
 									qt1.execute(q, function(r){
+										console.log(r)
 										t.reportArray = r.features[0].attributes;
 										r.features[0].setSymbol(t.sym1);
 										t.map.graphics.add(r.features[0]);
 										t.repGroup = "appReportWrap";
+										console.log("made it")
 										t.esriapi.populateReport(t);
 										$(`#${t.id}appReportWrap`).slideDown();
 									});	
@@ -208,7 +210,8 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				})
 			},
 			populateReport: function(t){
-				$(`#${t.id}t.repGroup span`).each(function(i,v){
+				$(`#${t.id}${t.repGroup} span`).each(function(i,v){
+					
 					if (v.id.length > 0){
 						var field = v.id.split("-").pop()
 						// handles duplicate ids in print report
@@ -225,11 +228,11 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						}
 					}
 				})
-				$(`#${t.id}t.repGroup .noDecimals`).each(function(i,v){
+				$(`#${t.id}${t.repGroup} .noDecimals`).each(function(i,v){
 					var num = Math.round($(v).html())
 					$(v).html(num)
 				})
-				$(`#${t.id}t.repGroup .twoDecimals`).each(function(i,v){
+				$(`#${t.id}${t.repGroup} .twoDecimals`).each(function(i,v){
 					var num = parseFloat( $(v).html() ).toFixed(2);
 					$(v).html(num)
 				})
