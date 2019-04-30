@@ -100,6 +100,9 @@
 .gpe-watershed-report .esriSimpleSliderTL{
 	top:5px; left: 5px;
 }
+.gpe-watershed-report .rep-in{
+	margin-left:20px;
+}
 table {
     border-collapse: collapse;
 }

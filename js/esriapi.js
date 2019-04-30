@@ -95,8 +95,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 									qt1.execute(q, function(r){
 										t.reportArray = r.features[0].attributes;
 										r.features[0].setSymbol(t.sym1);
-										//t.map.graphics.add(r.features[0]);
-										//t.printMap.graphics.add(r.features[0]);
 										t.layerDefs[t.catchlyr] = "OBJECTID = " + r.features[0].attributes.OBJECTID;
 										t.dynamicLayer.setLayerDefinitions(t.layerDefs);
 										t.printLayer.setLayerDefinitions(t.layerDefs);
@@ -290,6 +288,10 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				})
 				$(`#${t.id}${t.repGroup} .noDecimals`).each(function(i,v){
 					var num = Math.round($(v).html())
+					$(v).html(num)
+				})
+				$(`#${t.id}${t.repGroup} .oneDecimal`).each(function(i,v){
+					var num = parseFloat( $(v).html() ).toFixed(1);
 					$(v).html(num)
 				})
 				$(`#${t.id}${t.repGroup} .twoDecimals`).each(function(i,v){

@@ -18,7 +18,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			declare.safeMixin(this, frameworkParameters);
 			// Define object to access global variables from JSON object. Only add variables to varObject.json that are needed by Save and Share. 
 			this.obj = dojo.eval("[" + obj + "]")[0];	
-			this.url = "https://dev-services.coastalresilience.org/arcgis/rest/services/Missouri_Headwaters/missouri_headwaters/MapServer";
+			this.url = "https://services2.coastalresilience.org/arcgis/rest/services/Missouri_Headwaters/missouri_headwaters/MapServer";
 			this.layerDefs = [];
 			this.appname = "Missouri Headwaters";
 		},
@@ -66,20 +66,12 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		prePrintModal: function(preModalDeferred, $printSandbox, $modalSandbox, mapObject) {
 			var printReport = $(`${this.id}watershed-report`).detach();
           	printReport.appendTo($printSandbox)
-          	preModalDeferred.resolve();
+          	window.setTimeout(function() {
+          		preModalDeferred.resolve();
+          	 }, 750);	
         },
 		postPrintModal: function(postModalDeferred, $printSandbox, $modalSandbox, mapObject) {
-            window.setTimeout(function() {
-                if (mapObject.updating) {
-                	console.log("updating")
-                    var delayedPrint = mapObject.on('update-end', function() {
-                        delayedPrint.remove();
-                        postModalDeferred.resolve();
-                    });
-                } else {
-                    postModalDeferred.resolve();
-                }
-            }, 750);
+            postModalDeferred.resolve();
         },	
 		// Called by activate and builds the plugins elements and functions
 		render: function() {

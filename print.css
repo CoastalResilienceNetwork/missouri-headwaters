@@ -6,7 +6,7 @@
         visibility:visible !important; margin-bottom: 0px; padding: 0;
     }
     .gpe-report-header-wrap{
-        padding-top: 0px
+        padding-top: 0px;
     }
     .map-tools, .basemap-selector, #dijit_layout_ContentPane_1, #dijit_layout_ContentPane_2, #dijit_layout_ContentPane_3, .printHide {
         display: none;
