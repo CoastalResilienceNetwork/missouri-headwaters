@@ -5,13 +5,12 @@ require({
 // Bring in dojo and javascript api classes as well as varObject.json, js files, and content.html
 define([
 	"dojo/_base/declare", "framework/PluginBase", "dijit/layout/ContentPane", "dojo/dom", "dojo/dom-style", "dojo/dom-geometry", "dojo/text!./obj.json", 
-	"dojo/text!./html/content.html", "dojo/text!./html/report.html", './js/esriapi', './js/clicks', 'dojo/_base/lang', "esri/tasks/query", "esri/tasks/QueryTask"	
+	"dojo/text!./html/content.html", "dojo/text!./html/report.html", './js/esriapi', './js/clicks', 'dojo/_base/lang', "esri/tasks/query", "esri/tasks/QueryTask", "esri/graphicsUtils"	
 ],
-function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, content, report,  esriapi, clicks, lang, Query, QueryTask ) {
+function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, content, report,  esriapi, clicks, lang, Query, QueryTask, graphicsUtils ) {
 	return declare(PluginBase, {
 		// The height and width are set here when an infographic is defined. When the user click Continue it rebuilds the app window with whatever you put in.
-		toolbarName:"General Physical and Ecological Info", showServiceLayersInLegend:true, allowIdentifyWhenActive:false, rendered:false, resizable:false,
-		hasCustomPrint:true, size:'custom', width:'500', hasHelp:false, fullName:"General Physical and Ecological Info",
+		toolbarName:"General Physical and Ecological Info", showServiceLayersInLegend:true, allowIdentifyWhenActive:false, rendered:false, hasCustomPrint:true,  usePrintModal: false, printModalSize: [500, 600], size:'custom', width:'500', hasHelp:false, fullName:"General Physical and Ecological Info",
 		
 		// First function called when the user clicks the pluging icon. 
 		initialize: function (frameworkParameters) {
@@ -19,7 +18,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			declare.safeMixin(this, frameworkParameters);
 			// Define object to access global variables from JSON object. Only add variables to varObject.json that are needed by Save and Share. 
 			this.obj = dojo.eval("[" + obj + "]")[0];	
-			this.url = "https://services2.coastalresilience.org/arcgis/rest/services/Missouri_Headwaters/missouri_headwaters/MapServer";
+			this.url = "https://dev-services.coastalresilience.org/arcgis/rest/services/Missouri_Headwaters/missouri_headwaters/MapServer";
 			this.layerDefs = [];
 			this.appname = "Missouri Headwaters";
 		},
@@ -65,16 +64,22 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			this.obj = state;
 		},
 		prePrintModal: function(preModalDeferred, $printSandbox, $modalSandbox, mapObject) {
-        	$printSandbox.html(this.repIdUpdate)
-          	// Fill in report
-          	this.repGroup = "watershed-report";
-          	this.esriapi.populateReport(this);
+			var printReport = $(`${this.id}watershed-report`).detach();
+          	printReport.appendTo($printSandbox)
           	preModalDeferred.resolve();
         },
-		postPrintModal: function(postModalDeferred, modalSandbox, mapObject) {
+		postPrintModal: function(postModalDeferred, $printSandbox, $modalSandbox, mapObject) {
             window.setTimeout(function() {
-                postModalDeferred.resolve();
-            }, 1);
+                if (mapObject.updating) {
+                	console.log("updating")
+                    var delayedPrint = mapObject.on('update-end', function() {
+                        delayedPrint.remove();
+                        postModalDeferred.resolve();
+                    });
+                } else {
+                    postModalDeferred.resolve();
+                }
+            }, 750);
         },	
 		// Called by activate and builds the plugins elements and functions
 		render: function() {
@@ -109,7 +114,27 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			$("#showDesc").click(function(c){
 				$("#showDesc").hide();
 				$("#descWrap").show();
-			})	
+			})
+			// Hide unwanted map controls
+			$(`#map-utils-control`).hide();	
+			// Add full extent div
+			this.fullExDiv = new ContentPane({style:'padding:5px; color:#000; opacity: 1; z-index:1000; position:absolute; top:145px; right:20px; border-radius:5px; border:1px solid #999; box-shadow: 0 1px 2px rgba(0,0,0,0.5); background:#fff;'});
+			this.feID = this.fullExDiv.id;
+			dom.byId('map-0').appendChild(this.fullExDiv.domNode);
+			$(`#${this.feID}`).html(`
+				<div id="fullExtent" class="fullExtent" style="margin-bottom:-5px; cursor:pointer;">
+					<img src="plugins/missouri-headwaters/images/fullExtent.png" width="22" height="22">
+				</div>
+			`)
+			// Add coordinates
+			this.coorDiv = new ContentPane({style:'padding:5px; color:#000; opacity: 1; z-index:1000; position:absolute; bottom:45px; left:20px;'});
+			this.coorID = this.coorDiv.id;
+			dom.byId('map-0').appendChild(this.coorDiv.domNode);
+			$(`#${this.coorID}`).html(`
+				<div id="coordinates" style="color:#666666; font-size:12px; font-weight:bolder;"></div>
+			`)
+			// Add cover div for print
+			$(".flex-expand").prepend(`<div id="mapCover" style="display:none; width:100%; height:100%; background:black;"></div>`)
 			// Create report div
 			this.repIdUpdate = report.replace(/id="/g, 'id="' + this.id);
 			// Click listeners

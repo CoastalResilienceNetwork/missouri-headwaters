@@ -1,4 +1,93 @@
 ﻿@media print {
+    @page { 
+        size: portrait;
+    }
+    .gpe-watershed-report{
+        visibility:visible !important; margin-bottom: 0px; padding: 0;
+    }
+    .gpe-report-header-wrap{
+        padding-top: 0px
+    }
+    .map-tools, .basemap-selector, #dijit_layout_ContentPane_1, #dijit_layout_ContentPane_2, #dijit_layout_ContentPane_3, .printHide {
+        display: none;
+    }
+    .pageBreak{
+        page-break-after: always;
+        page-break-inside: avoid;
+    }
+    .pageBreakb{
+        page-break-before: always;
+        page-break-inside: avoid;
+
+    }
+    #legend-container-0 {
+        display: none !important;
+    }
+    #map-0 {
+        display:none !important;
+    }  
+}
+
+
+/**
+    Rules related to the print preview map:
+    1. Overrides to the print modal to fit the map
+    2. Overrides to the map to better fit in the modal
+**/
+
+/*.print-preview {
+    width: 100%;
+    margin-top: 0px;
+}
+
+.print-preview-map-container {
+    width: 100%;
+    height: 100%;
+}
+
+
+.popover-section {
+    height: 400px;
+}
+
+.print-modal-confirm-container {
+    position: initial;
+}
+
+
+
+#map-0_zoom_slider {
+    top: 10px;
+    right: 10px;
+}
+
+.print-modal-confirm-container {
+    position: relative !important;
+    margin-top: 30px;
+    bottom: 0px !important;
+    left: 0px !important;
+}
+*/
+/*.print-modal-confirm-container{
+    position:relative;
+    z-index:100px;
+}*/
+#map-0 {
+    display:none !important; 
+}
+/*
+.printMap #legend-container-0 {
+    display: none !important;
+}*/
+/*.print-preview-map-container #legend-container-0 {
+    display: none !important;
+}*/
+/*.map-tools, .basemap-selector, #dijit_layout_ContentPane_2, #dijit_layout_ContentPane_3 {
+    display: none !important;
+}*/
+
+
+/*@media print {
 	@page { 
         size: 8.5in 11in portrait;
 		margin:13mm;
@@ -15,10 +104,16 @@
 	.pgBreak{
 		break-after:always;
 	}
-	#map-0{
+	 #legend-container-0 {
+        display:none !important;
+    }
+    #plugin-print-sandbox #map-0 {
+		position:relative !important; margin-bottom:0 !important;
+	}
+	#map-print-sandbox{
+		height:4in !important; width:4in !important;
+	}
+	.layer-legends,.legend-header, #dijit_layout_ContentPane_2{
 		display:none;
 	}
-	.layer-legends,.legend-header{
-		display:none;
-	}
-}
+}*/

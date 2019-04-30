@@ -1,19 +1,31 @@
 define([
 	"esri/layers/ArcGISDynamicMapServiceLayer", "esri/geometry/Extent", "esri/SpatialReference", "esri/tasks/query" ,"esri/tasks/QueryTask", "dojo/_base/declare", "esri/layers/FeatureLayer", 
 	"esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/symbols/SimpleMarkerSymbol", "esri/graphic", "dojo/_base/Color", "dojo/_base/lang",
-	"esri/tasks/IdentifyTask", "esri/tasks/IdentifyParameters", "esri/request", 
+	"esri/tasks/IdentifyTask", "esri/tasks/IdentifyParameters", "esri/request", "esri/geometry/webMercatorUtils", "esri/map"
 ],
 function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, QueryTask, declare, FeatureLayer, 
 			SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Graphic, Color, lang,
-			IdentifyTask, IdentifyParameters, esriRequest) {
+			IdentifyTask, IdentifyParameters, esriRequest, webMercatorUtils, Map) {
         "use strict";
 
         return declare(null, {
-			esriApiFunctions: function(t){	
+			esriApiFunctions: function(t){
+				// layer variables
+				t.bndrylyr = 1;
+				t.catchlyr = 2;	
+				t.h12lyr = 3;
+				t.streamlyr = 4;
+				// print maps
+				t.printMap = new Map(t.id + "printMap",{
+         			basemap: "topo", center: [-104, 45], zoom: 5, showAttribution:false, isScrollWheel:false, logo:false
+        		});
 				// Add dynamic map service
-				t.dynamicLayer = new ArcGISDynamicMapServiceLayer(t.url, {opacity:0.5});
+				t.dynamicLayer = new ArcGISDynamicMapServiceLayer(t.url, {opacity:0.7});
+				t.printLayer = new ArcGISDynamicMapServiceLayer(t.url, {opacity:0.7});
 				t.map.addLayer(t.dynamicLayer);
-				t.dynamicLayer.setVisibleLayers([1]);
+				t.dynamicLayer.setVisibleLayers([t.bndrylyr]);
+				t.printMap.addLayer(t.printLayer);
+        		t.printLayer.setVisibleLayers([t.bndrylyr]);
 				t.dynamicLayer.on("load", function () { 			
 					t.layersArray = t.dynamicLayer.layerInfos;
 					t.esriapi.buildToc(t);
@@ -25,6 +37,20 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					}else{
 						
 					}
+					var me = t.map.extent;
+					// full extent click
+					$(`#${t.feID}`).click(function() {
+						t.map.setExtent(me);
+						$(".groupDiv").slideUp("slow");
+						$(`#${t.id}toc input[name='tocRadios']`).prop("checked",false);
+						$(`#${t.descID}`).hide();
+						t.map.graphics.clear();
+						t.printMap.graphics.clear();
+						$(`#${t.id}appReportWrap`).slideUp();
+						t.obj.visibleLayers = [t.bndrylyr];
+						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+						t.printLayer.setVisibleLayers(t.obj.visibleLayers);
+					});
 				});
 				t.map.setMapCursor("pointer");
 
@@ -33,31 +59,54 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
    					change: function( event, ui ) {
 						t.obj.sliderVal = 1-ui.value/10;
 						t.dynamicLayer.setOpacity(t.obj.sliderVal);
+						t.printLayer.setOpacity(t.obj.sliderVal);
 					}
 				})
+				// map coordinates
+				t.map.on("mouse-move", function(evt){
+					//the map is in web mercator but display coordinates in geographic (lat, long)
+          			var mp = webMercatorUtils.webMercatorToGeographic(evt.mapPoint);
+          			//display mouse coordinates
+          			$("#coordinates").html(mp.x.toFixed(3) + ", " + mp.y.toFixed(3));
+				});
+          		t.map.on("mouse-drag", function(evt){
+					//the map is in web mercator but display coordinates in geographic (lat, long)
+          			var mp = webMercatorUtils.webMercatorToGeographic(evt.mapPoint);
+          			//display mouse coordinates
+          			$("#coordinates").html(mp.x.toFixed(3) + ", " + mp.y.toFixed(3));
+				});
 				// map clicks
 				t.huc12 = "";
 				t.map.on("click",function(c){
 					if (t.open == "yes"){
 						t.map.setMapCursor("wait")
 						t.map.graphics.clear();
+						t.printMap.graphics.clear();
 						t.reportArray = [];
 						var q = new Query();
-						var qt = new QueryTask(t.url + "/3" );
+						var qt = new QueryTask(t.url + "/" + t.h12lyr );
 						q.geometry = c.mapPoint;
 						q.outFields = ["*"];
 						q.returnGeometry = true;
 						qt.execute(q, function(e){
 							if (e.features[0]){
 								if (t.huc12 == e.features[0].attributes.HUC_12){
-									var qt1 = new QueryTask(t.url + "/4")
+									var qt1 = new QueryTask(t.url + "/" + t.catchlyr)
 									qt1.execute(q, function(r){
-										console.log(r)
 										t.reportArray = r.features[0].attributes;
 										r.features[0].setSymbol(t.sym1);
-										t.map.graphics.add(r.features[0]);
+										//t.map.graphics.add(r.features[0]);
+										//t.printMap.graphics.add(r.features[0]);
+										t.layerDefs[t.catchlyr] = "OBJECTID = " + r.features[0].attributes.OBJECTID;
+										t.dynamicLayer.setLayerDefinitions(t.layerDefs);
+										t.printLayer.setLayerDefinitions(t.layerDefs);
+										var index = t.obj.visibleLayers.indexOf(t.catchlyr)
+										if (index == -1){
+											t.obj.visibleLayers.push(t.catchlyr);
+										}
+										t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+										t.printLayer.setVisibleLayers(t.obj.visibleLayers);
 										t.repGroup = "appReportWrap";
-										console.log("made it")
 										t.esriapi.populateReport(t);
 										$(`#${t.id}appReportWrap`).slideDown();
 									});	
@@ -66,11 +115,13 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 									if ( t.map.getLevel() < 11 ){
 										t.map.centerAndZoom(c.mapPoint,11);
 									}
-									t.layerDefs[2] = "huc_12 = " + t.huc12;
-									t.layerDefs[3] = "HUC_12 = '" + t.huc12 + "'";
-									t.layerDefs[4] = "HUC12 = '" + t.huc12 + "'";
+									t.printExtent = e.features[0].geometry.getExtent().expand(1);
+									t.layerDefs[t.streamlyr] = "huc_12 = " + t.huc12;
+									t.layerDefs[t.h12lyr] = "HUC_12 = '" + t.huc12 + "'";
+									t.layerDefs[t.catchlyr] = "HUC12 = '" + t.huc12 + "'";
 									t.dynamicLayer.setLayerDefinitions(t.layerDefs);
-									var lyrs = [2,3]
+									t.printLayer.setLayerDefinitions(t.layerDefs);
+									var lyrs = [t.streamlyr,t.h12lyr]
 									$.each(lyrs,function(i,v){
 										var index = t.obj.visibleLayers.indexOf(v)
 										if (index == -1){
@@ -78,6 +129,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 										}
 									})
 									t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+									t.printLayer.setVisibleLayers(t.obj.visibleLayers);
 									$(`#${t.id}appReportWrap`).slideUp();
 								}
 								t.map.setMapCursor("pointer")	
@@ -87,6 +139,12 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						})
 					}
 				})
+			},
+			showCoordinates: function(t){
+				//the map is in web mercator but display coordinates in geographic (lat, long)
+          		var mp = webMercatorUtils.webMercatorToGeographic(evt.mapPoint);
+          		//display mouse coordinates
+          		dom.byId("coordinates").innerHTML = mp.x.toFixed(3) + ", " + mp.y.toFixed(3);
 			},
 			buildToc: function(t){
 				//build elements from array
@@ -168,6 +226,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					$(`#${t.id}toc input[name='tocRadios']`).prop("checked",false);
 					t.esriapi.layersUpdate(t);
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+					t.printLayer.setVisibleLayers(t.obj.visibleLayers);
 					if ( !$(c.currentTarget).parent().next().is(":visible") ){
 						$(c.currentTarget).parent().next().slideDown("slow");
 					}else{
@@ -181,6 +240,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					t.esriapi.layersUpdate(t);
 					t.obj.visibleLayers.push(c.currentTarget.value);
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+					t.printLayer.setVisibleLayers(t.obj.visibleLayers);
 					$.each(t.layerInfos,function(i,v){
 						if (v.id == c.currentTarget.value){
 							if (v.description.length > 0){

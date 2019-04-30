@@ -1,3 +1,6 @@
+ .dropdownWrap{
+  position: absolute; right:10px; top: 10px;
+}
 .gpe-top-wrap h4{
 	margin-top:1rem;
 }
@@ -63,48 +66,76 @@
   font-size: 11px; color: #82878c; margin-top: 10px; border-top: 1pt solid #ccc; 
   padding:15px 10px 10px;
 }
+/*report css*/
+.gpe-watershed-report{
+	display:none; background-color:#fff; margin-bottom:40px; padding: 0 10px;
+}
+.gpe-watershed-report h2{
+	margin-top:0; margin-bottom:4px; font-size:18px;
+}
+.gpe-watershed-report h3{
+	margin-top:0; font-size:16px;
+}
+.gpe-watershed-report h4{
+	font-size:14px;
+}
+.gpe-watershed-report h5{
+	font-size:13px; text-decoration:underline;
+}
+.gpe-watershed-report h6{
+	font-size:13px; font-weight:bold; margin-bottom:5px; margin-top:0;
+}
+.gpe-report-header-wrap{
+	text-align:center; padding-top: 70px
+}
+.gpe-watershed-report .gpe-r1d{
+	margin-left:10px;
+}
+.gpe-watershed-report .gpe-r1n{
+	margin-right:5px; font-weight:normal;
+}
+.gpe-watershed-report .gpe-r1n span, .gpe-watershed-report .gpe-r1d span{
+	font-weight:bold;
+}
+.gpe-watershed-report .esriSimpleSliderTL{
+	top:5px; left: 5px;
+}
+table {
+    border-collapse: collapse;
+}
+td, th {
+    border:1px solid #999; padding:0.25rem; text-align:left;
+} 
+th{
+	font-weight:normal; color:#000;
+}
+.printMapDiv{
+	margin-top:10px; 
+}
+.printMap{
+	width:6.5in; height:3.5in; position:relative; border: 1pt solid #333;
+}
+.pageBreakb{
+	position:relative;
+}
+.reportControls{
+	border-bottom: 1pt solid #ccc; text-align: center; padding-top: 14px; position: absolute; 
+	margin-top:-10px; z-index: 300; background: #fff; width: 100%; margin-left: -8px;
+    box-shadow: 0 7px 6px -6px #aaa;
+}
+.printLegend .legend-layer{
+	float:unset; margin-bottom:4px; 
+}
+.printLegend {
+    display: flex; flex-direction: column; flex-wrap: wrap; margin-top:10px; max-height: 240px; width: 680px;
+}
+.printLegend .item-label {
+    position: relative; top: -4px;
+} 
+.printLegend .legend-title{
+	text-decoration: underline;
+}
 
-/* styles for '...' */ 
-.block-with-text {
-  /* hide text if it more than N lines  */
-  overflow: hidden;
-  /* for set '...' in absolute position */
-  position: relative; 
-  /* use this value to count block height */
-  line-height: 1.2em;
-  /* max-height = line-height (1.2) * lines max number (2) */
-  max-height: 2.4em; 
-  /* fix problem when last visible word doesn't adjoin right side  */
-  text-align: justify;  
-  /* place for '...' */
-  margin-right: -1em;
-  padding-right: 1em;
-}
-/* create the ... */
-.block-with-text:before {
-  /* points in the end */
-  content: '...';
-  /* absolute position */
-  position: absolute;
-  /* set position to right bottom corner of block */
-  right: 0;
-  bottom: 0;
-}
-/* hide ... if we have text, which is less than or equal to max lines */
-.block-with-text:after {
-  /* points in the end */
-  content: '';
-  /* absolute position */
-  position: absolute;
-  /* set position to right bottom corner of text */
-  right: 0;
-  /* set width and height */
-  width: 1em;
-  height: 1em;
-  margin-top: 0.2em;
-  /* bg color = bg color under block */
-  background: white;
-}
 
 @media screen and (max-width: 736px) {
   .nav-main-title{
