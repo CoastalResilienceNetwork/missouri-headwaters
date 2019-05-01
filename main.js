@@ -64,8 +64,8 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			this.obj = state;
 		},
 		prePrintModal: function(preModalDeferred, $printSandbox, $modalSandbox, mapObject) {
-			var printReport = $(`${this.id}watershed-report`).detach();
-          	printReport.appendTo($printSandbox)
+			// var printReport = $(`${this.id}watershed-report`).detach();
+   //        	printReport.appendTo($printSandbox)
           	window.setTimeout(function() {
           		preModalDeferred.resolve();
           	 }, 750);	

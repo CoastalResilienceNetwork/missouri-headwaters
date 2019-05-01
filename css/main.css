@@ -103,13 +103,13 @@
 .gpe-watershed-report .rep-in{
 	margin-left:20px;
 }
-table {
+.gpe-watershed-report table {
     border-collapse: collapse;
 }
-td, th {
+.gpe-watershed-report td, .gpe-watershed-report th {
     border:1px solid #999; padding:0.25rem; text-align:left;
 } 
-th{
+.gpe-watershed-report th{
 	font-weight:normal; color:#000;
 }
 .printMapDiv{
