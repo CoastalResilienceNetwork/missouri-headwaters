@@ -133,6 +133,16 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 								t.map.setMapCursor("pointer")	
 							}else{
 								$(`#${t.id}appReportWrap`).slideUp();
+								var lyrs = [t.streamlyr, t.catchlyr, t.h12lyr]
+								$.each(lyrs,function(i,v){
+									var index = t.obj.visibleLayers.indexOf(v)
+									if (index > -1){
+										t.obj.visibleLayers.splice(index,1);
+									}
+								})
+								t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+								t.printLayer.setVisibleLayers(t.obj.visibleLayers);
+								t.map.setMapCursor("pointer");
 							}
 						})
 					}

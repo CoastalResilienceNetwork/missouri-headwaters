@@ -24,13 +24,18 @@ function ( declare, Query, QueryTask, graphicsUtils ) {
 					});		
 				})
 				$("#sldr").slider({ min: 0, max: 10, range: false, values: [1] })
-				
+				// populate full report and prepare for printing
 				$("#" + t.id + "previewReport").click(function(c){
 					// hide controls and show report
 					$(`#${t.id}top-wrap`).hide();
 					$(`#${t.id}watershed-report`).show();
 					// expand plugin width
 					$('#' + t.id).parent().parent().css("width","720");
+					// get and set basemap
+					$(".basemap-selector-title span").remove();
+					let h = $(".basemap-selector-title").html();
+					const bm = {Topographic: "topo", Streets: "streets", Imagery: "satellite"};
+					t.printMap.setBasemap(bm[h]);
 					// set map extent
 					t.printExtent = t.map.extent;
             		t.printMap.setExtent(t.printExtent);
