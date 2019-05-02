@@ -5,9 +5,9 @@ require({
 // Bring in dojo and javascript api classes as well as varObject.json, js files, and content.html
 define([
 	"dojo/_base/declare", "framework/PluginBase", "dijit/layout/ContentPane", "dojo/dom", "dojo/dom-style", "dojo/dom-geometry", "dojo/text!./obj.json", 
-	"dojo/text!./html/content.html", "dojo/text!./html/report.html", './js/esriapi', './js/clicks', 'dojo/_base/lang', "esri/tasks/query", "esri/tasks/QueryTask", "esri/graphicsUtils"	
+	"dojo/text!./html/content.html", './js/esriapi', './js/clicks', 'dojo/_base/lang', "esri/tasks/query", "esri/tasks/QueryTask", "esri/graphicsUtils"	
 ],
-function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, content, report,  esriapi, clicks, lang, Query, QueryTask, graphicsUtils ) {
+function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, content,  esriapi, clicks, lang, Query, QueryTask, graphicsUtils ) {
 	return declare(PluginBase, {
 		// The height and width are set here when an infographic is defined. When the user click Continue it rebuilds the app window with whatever you put in.
 		toolbarName:"General Physical and Ecological Info", showServiceLayersInLegend:true, allowIdentifyWhenActive:false, rendered:false, hasCustomPrint:true,  usePrintModal: false, printModalSize: [500, 600], size:'custom', width:'500', hasHelp:false, fullName:"General Physical and Ecological Info",
@@ -127,8 +127,6 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			`)
 			// Add cover div for print
 			$(".flex-expand").prepend(`<div id="mapCover" style="display:none; width:100%; height:100%; background:black;"></div>`)
-			// Create report div
-			this.repIdUpdate = report.replace(/id="/g, 'id="' + this.id);
 			// Click listeners
 			this.clicks.eventListeners(this);
 			// Create ESRI objects and event listeners	
