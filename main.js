@@ -119,7 +119,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 				</div>
 			`)
 			// Add coordinates
-			this.coorDiv = new ContentPane({style:'padding:5px; color:#000; opacity: 1; z-index:1000; position:absolute; bottom:45px; left:20px;'});
+			this.coorDiv = new ContentPane({style:'padding:2px; color:#000; opacity: 1; z-index:1000; position:absolute; bottom:45px; right:10px; background:rgba(255,255,255,0.75);'});
 			this.coorID = this.coorDiv.id;
 			dom.byId('map-0').appendChild(this.coorDiv.domNode);
 			$(`#${this.coorID}`).html(`
